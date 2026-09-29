@@ -1,29 +1,26 @@
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
+app.use(express.urlencoded({ extended: true }));
 
-app.use(express.json());
-
-app.get('/', (req,res)=>{
+app.get('/', (req, res) => {
   res.send(`
-  <html>
-  <head><title>ZAA PANEL</title>
-  <style>
-  body{background:#0f0f0f;color:white;font-family:sans-serif;text-align:center;padding:50px}
-  h1{color:#00ff88} 
-  .box{background:#1a1a1a;padding:20px;border-radius:10px;margin-top:20px}
-  </style>
-  </head>
-  <body>
-  <h1>ZAA PANEL AKTIF 🚀</h1>
-  <div class="box">
-  <h2>Status: ONLINE</h2>
-  <p>Deploy berhasil!</p>
-  <p>Username default: admin<br>Password: 123456</p>
-  </div>
-  </body>
-  </html>
+    <body style="background:black;color:white;font-family:sans-serif;display:flex;justify-content:center;align-items:center;height:100vh">
+      <form method="POST" action="/login" style="background:#111;padding:30px;border-radius:15px;text-align:center;width:300px">
+        <h2 style="color:#0f0">ZAA PANEL LOGIN</h2>
+        <input name="user" placeholder="Username" style="width:100%;padding:10px;margin:10px 0;border-radius:8px"><br>
+        <input name="pass" type="password" placeholder="Password" style="width:100%;padding:10px;margin:10px 0;border-radius:8px"><br>
+        <button style="width:100%;padding:10px;background:#0f0;color:black;font-weight:bold;border-radius:8px">LOGIN</button>
+      </form>
+    </body>
   `);
 });
 
-app.listen(PORT, ()=> console.log('ZAA PANEL jalan di port '+PORT));
+app.post('/login', (req,res)=>{
+  if(req.body.user==='admin' && req.body.pass==='123456'){
+    res.send('<h1 style="background:black;color:#0f0;text-align:center;padding-top:100px">✅ LOGIN BERHASIL! Selamat datang di ZAA PANEL 🚀</h1>');
+  } else {
+    res.send('<h1 style="color:red;text-align:center;padding-top:100px">Password salah! <a href="/">Coba lagi</a></h1>');
+  }
+});
+
+app.listen(process.env.PORT || 3000, ()=> console.log('aktif'));
