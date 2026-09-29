@@ -4,23 +4,37 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
   res.send(`
-    <body style="background:black;color:white;font-family:sans-serif;display:flex;justify-content:center;align-items:center;height:100vh">
-      <form method="POST" action="/login" style="background:#111;padding:30px;border-radius:15px;text-align:center;width:300px">
-        <h2 style="color:#0f0">ZAA PANEL LOGIN</h2>
-        <input name="user" placeholder="Username" style="width:100%;padding:10px;margin:10px 0;border-radius:8px"><br>
-        <input name="pass" type="password" placeholder="Password" style="width:100%;padding:10px;margin:10px 0;border-radius:8px"><br>
-        <button style="width:100%;padding:10px;background:#0f0;color:black;font-weight:bold;border-radius:8px">LOGIN</button>
-      </form>
-    </body>
+  <body style="background:black;color:white;text-align:center;padding-top:50px;font-family:sans-serif">
+    <h2 style="color:#00ff88">ZAA PANEL LOGIN 🚀</h2>
+    <form method="POST" action="/login" style="margin-top:20px">
+      <input name="username" placeholder="Username" style="padding:10px"><br><br>
+      <input name="password" type="password" placeholder="Password" style="padding:10px"><br><br>
+      <button style="padding:10px 20px;background:#00ff88;border:none">LOGIN</button>
+    </form>
+  </body>
   `);
 });
 
-app.post('/login', (req,res)=>{
-  if(req.body.user==='admin' && req.body.pass==='123456'){
-    res.send('<h1 style="background:black;color:#0f0;text-align:center;padding-top:100px">✅ LOGIN BERHASIL! Selamat datang di ZAA PANEL 🚀</h1>');
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  if (username === 'admin' && password === '123456') {
+    res.redirect('/panel');
   } else {
-    res.send('<h1 style="color:red;text-align:center;padding-top:100px">Password salah! <a href="/">Coba lagi</a></h1>');
+    res.send('Gagal login <a href="/">kembali</a>');
   }
 });
 
-app.listen(process.env.PORT || 3000, ()=> console.log('aktif'));
+app.get('/panel', (req, res) => {
+  res.send(`
+  <body style="background:black;color:white;text-align:center;padding-top:50px">
+    <h2 style="color:#00ff88">ZAA PANEL AKTIF 🚀</h2>
+    <div style="background:#111;padding:20px;border-radius:10px;display:inline-block">
+      <h3>Status: ONLINE</h3>
+      <p>Deploy berhasil!</p>
+      <p>Username default: admin<br>Password: 123456</p>
+    </div>
+  </body>
+  `);
+});
+
+app.listen(process.env.PORT || 3000);
