@@ -1,59 +1,27 @@
 const express = require('express');
 const app = express();
-
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
-let users = [{ username: 'admin', password: '123456' }];
-
 app.get('/', (req, res) => {
   res.send(`
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ZAA PANEL</title>
-<style>
-body{background:#000;color:#0f0;font-family:monospace;display:flex;justify-content:center;align-items:center;height:100vh;margin:0}
-.box{border:2px solid #0f0;padding:30px;border-radius:10px;width:90%;max-width:350px;box-shadow:0 0 20px #0f0}
-h2{text-align:center}
-input{width:100%;padding:12px;margin:8px 0;background:#111;border:1px solid #0f0;color:#0f0;border-radius:5px;box-sizing:border-box}
-button{width:100%;padding:12px;background:#0f0;color:#000;border:none;font-weight:bold;border-radius:5px;margin-top:10px}
-</style>
-</head>
-<body>
-<div class="box">
-<h2>ZAA PANEL LOGIN</h2>
-<form method="POST" action="/login">
-<input name="username" placeholder="Username" required>
-<input name="password" type="password" placeholder="Password" required>
-<button type="submit">LOGIN</button>
-</form>
-<p style="text-align:center;font-size:12px;margin-top:15px">admin / 123456</p>
-</div>
-</body>
-</html>
-  `);
+  <body style="background:#000;color:#fff;font-family:sans-serif;text-align:center;padding-top:50px">
+  <h1 style="color:#00ff88">ZAA PANEL AKTIF ✅</h1>
+  <p>Web lu udah bisa dijangkau!</p>
+  <a href="/panel" style="background:#00ff88;color:#000;padding:12px 20px;text-decoration:none;border-radius:8px;font-weight:bold">MASUK PANEL</a>
+  </body>`);
 });
-
-app.post('/login', (req, res) => {
-  const { username, password } = req.body;
-  const found = users.find(u => u.username === username && u.password === password);
-  if (found) {
-    res.send(`
-      <body style="background:#000;color:#0f0;font-family:monospace;display:flex;justify-content:center;align-items:center;height:100vh">
-      <div style="text-align:center;border:2px solid #0f0;padding:40px;border-radius:10px">
-      <h1>LOGIN SUKSES!</h1>
-      <p>Welcome ${username}</p>
-      <h2 style="color:white">ZAA PANEL AKTIF</h2>
-      <p>Panel lu udah jadi!</p>
-      </div>
-      </body>
-    `);
-  } else {
-    res.send('<h2 style="color:red;text-align:center">LOGIN GAGAL! <a href="/">Balik</a></h2>');
-  }
+app.get('/panel', (req,res) => {
+  res.send(`
+  <body style="background:#000;color:#fff;font-family:sans-serif;padding:20px">
+  <h2 style="color:#00ff88">ZAA PANEL STORE</h2>
+  <form onsubmit="buat(event)" style="background:#111;padding:15px;border-radius:10px;max-width:400px">
+  <input id="u" placeholder="Username" required style="width:90%;padding:10px;margin:5px;background:#222;color:#fff;border:1px solid #333"><br>
+  <input id="p" placeholder="Password" required style="width:90%;padding:10px;margin:5px;background:#222;color:#fff;border:1px solid #333"><br>
+  <select id="r" style="width:95%;padding:10px;margin:5px;background:#222;color:#fff"><option>1GB</option><option>2GB</option><option>5GB</option><option>UNLIMITED</option></select><br>
+  <button style="width:95%;padding:12px;background:#00ff88;border:none;font-weight:bold;border-radius:6px">CREATE PANEL</button>
+  </form>
+  <div id="hasil"></div>
+  <script>
+  function buat(e){e.preventDefault();let u=document.getElementById('u').value,p=document.getElementById('p').value,r=document.getElementById('r').value;document.getElementById('hasil').innerHTML='<div style=\\'background:#111;border-left:3px solid #00ff88;padding:10px;margin-top:15px\\'><b>USERNAME:</b> '+u+'<br><b>PASSWORD:</b> '+p+'<br><b>RAM:</b> '+r+'<br><br><small style=\\'color:#888\\'>Copy kirim ke pembeli</small></div>';}
+  </script></body>`);
 });
-
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log('ZAA PANEL RUN ON ' + PORT));
+app.listen(PORT, '0.0.0.0', () => console.log('Running on '+PORT));
