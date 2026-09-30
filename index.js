@@ -19,9 +19,15 @@ app.get('/', (req, res) => {
   <div class="card">
   <h2>ZAA PANEL STORE</h2>
   <p style="text-align:center;color:#666;font-size:13px;margin-bottom:15px">Respon 1-5 menit • Auto Notif Telegram</p>
-  <input id="u" placeholder="Username Panel (contoh: zaa123)">
-  <input id="wa" placeholder="No WA Pembeli 08xxxx">
-  <select id="r"><option value="1GB - 10K">1GB - Rp10.000</option><option value="2GB - 15K">2GB - Rp15.000</option><option value="5GB - 25K">5GB - Rp25.000</option><option value="UNLI - 35K">UNLIMITED - Rp35.000</option></select>
+  <input id="u" placeholder="Username Panel (contoh: zaa123)"><select id="r">
+  <option value="1GB - 1K">1GB - Rp1.000</option>
+  <option value="2GB - 2K">2GB - Rp2.000</option>
+  <option value="3GB - 3K">3GB - Rp3.000</option>
+  <option value="4GB - 4K">4GB - Rp4.000</option>
+  <option value="5GB - 5K">5GB - Rp5.000</option>
+  <option value="6GB - 6K">6GB - Rp6.000</option>
+  <option value="UNLI - 7K">UNLIMITED - Rp7.000</option>
+</select>
   <button onclick="order()">ORDER SEKARANG</button>
   <div id="hasil" style="margin-top:15px"></div>
   </div>
