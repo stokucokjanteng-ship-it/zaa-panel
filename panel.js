@@ -33,4 +33,4 @@ app.post('/create', (req,res)=>{
   db.push({...req.body, date: new Date().toLocaleString('id-ID')});
   res.redirect('/panel?created=1');
 });
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 3000, '0.0.0.0', () => console.log('RUN'));
